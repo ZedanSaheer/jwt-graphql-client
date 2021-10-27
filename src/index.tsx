@@ -6,16 +6,17 @@ import {
   useQuery,
   gql
 } from "@apollo/client";
-import App from "./App";
+import Routes from "./Routes";
 
 const client = new ApolloClient({
   uri: "http://localhost:5000/graphql",
+  credentials:"include",
   cache: new InMemoryCache()
 });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Routes />
   </ApolloProvider>,
   document.getElementById("root")
 );
