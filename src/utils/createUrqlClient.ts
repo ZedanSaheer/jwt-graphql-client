@@ -2,7 +2,7 @@ import { ssrExchange } from "@urql/core";
 import { dedupExchange, fetchExchange } from "urql";
 import { LoginMutation, MeQuery, MeDocument, LogoutMutation, RegisterMutation } from "../generated/graphql";
 import {cacheExchange} from "@urql/exchange-graphcache"
-import { betterUpdateQuery } from "./betterUpdateQuery";
+import { betterUpdateQuery } from "../pages/betterUpdateQuery";
 
 export const createUrqlClient = (ssrExchange : any ) =>({
     url: "http://localhost:5000/graphql", 

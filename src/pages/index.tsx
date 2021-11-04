@@ -13,9 +13,9 @@ const Home: NextPage = () => {
     <>
       <Navbar/>
       <div>Hello World</div> <br />
-      {data && data.posts.map((p)=>(<div key={p}>{p.title}</div>))}
+      {data && data.posts.map((p)=>(<div key={p.id}>{p.title}</div>))}
     </>
   )
 }
 
-export default withUrqlClient(createUrqlClient)(Home)  
+export default withUrqlClient(createUrqlClient,{ssr:true})(Home)  

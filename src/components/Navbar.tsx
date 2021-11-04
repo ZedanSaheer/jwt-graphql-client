@@ -9,7 +9,7 @@ interface NavbarProps {}
 const Navbar: FC<NavbarProps> = ({}) => {
 
     const [{fetching : logoutFetching},logout] = useLogoutMutation()
-    const [{data,fetching}] = useMeQuery();
+    const [{data,fetching}] = useMeQuery({});
     let body = null;
     if(fetching){
     }else if(!data?.me){
