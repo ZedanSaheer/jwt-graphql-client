@@ -28,8 +28,8 @@ const ChangePassword : NextPage<{token:string}> = ({token}) => {
               <Form>
                 <Box mt={4}>
                   <InputField
-                    name="password"
-                    placeholder=" New Password"
+                    name="newPassword"
+                    placeholder="New Password"
                     label="New Password"
                     type="password"
                   />
