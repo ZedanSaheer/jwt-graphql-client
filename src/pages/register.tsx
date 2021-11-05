@@ -1,10 +1,12 @@
 import { Button } from "@chakra-ui/button";
 import { Box } from "@chakra-ui/layout";
 import { Formik, Form } from "formik";
+import { withUrqlClient } from "next-urql";
 import { useRouter } from "next/dist/client/router";
 import { InputField } from "../components/InputField";
 import Wrapper from "../components/Wrapper";
 import { useRegisterMutation } from "../generated/graphql";
+import { createUrqlClient } from "../utils/createUrqlClient";
 import { toErrorMap } from "../utils/toErrorMaps";
 
 const Register = () => {
@@ -14,9 +16,9 @@ const Register = () => {
   return (
     <Wrapper>
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={{ email: "", username: "", password: "" }}
         onSubmit={async (value, { setErrors }) => {
-          const response = await register(value);
+          const response = await register({ options: value });
           if (response.data?.register.errors) {
             setErrors(toErrorMap(response.data.register.errors));
           } else if (response.data?.register.user) {
@@ -32,6 +34,9 @@ const Register = () => {
                 placeholder="Username"
                 label="Username"
               />
+              <Box mt={4}>
+                <InputField name="email" placeholder="Email" label="email" />
+              </Box>
               <Box mt={4}>
                 <InputField
                   name="password"
@@ -56,4 +61,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default withUrqlClient(createUrqlClient)(Register);
