@@ -45,7 +45,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
     }
 
   return (
-    <Flex bg="lightcyan" p={4}>
+    <Flex zIndex={2} bg="lightcyan" p={4}>
       <Box ml={"auto"}>
         {body}
       </Box>
