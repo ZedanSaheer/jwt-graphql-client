@@ -10,6 +10,7 @@ import { useLoginMutation } from "../generated/graphql";
 import { createUrqlClient } from "../utils/createUrqlClient";
 import { toErrorMap } from "../utils/toErrorMaps";
 import NextLink from "next/link"
+import { route } from "next/dist/server/router";
 
 const Login:FC<{}> = ({}) => {
   const [, login] = useLoginMutation();
@@ -24,7 +25,11 @@ const Login:FC<{}> = ({}) => {
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data.login.errors));
           } else if (response.data?.login.user) {
-            router.push("/");
+           if (typeof router.query.next === "string") {
+             router.push(router.query.next);
+           } else {
+             router.push("/");
+           }
           }
         }}
       >

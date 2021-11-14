@@ -1,46 +1,35 @@
 import { Button } from "@chakra-ui/button";
 import { Box } from "@chakra-ui/layout";
 import { Formik, Form } from "formik";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { InputField } from "../components/InputField";
-import Wrapper from "../components/Wrapper";
 import { withUrqlClient } from "next-urql";
 import { createUrqlClient } from "../utils/createUrqlClient";
-import { useCreatePostMutation, useMeQuery } from "../generated/graphql";
-import { Router, useRouter } from "next/dist/client/router"; 
+import { useCreatePostMutation } from "../generated/graphql";
+import { useRouter } from "next/dist/client/router";
 import { Layout } from "../components/Layout";
+import { useIsAuth } from "../utils/useIsAuth";
 
 export const CreatePost: FC<{}> = ({}) => {
-
-    const [,createPost] = useCreatePostMutation();
-    const [{data,fetching}] = useMeQuery();
-    const router = useRouter();
-
-    useEffect(() => {
-        if(!data?.me && !fetching){
-            router.replace("/login");
-        }
-    }, [fetching,data,router])
+  const router = useRouter();
+  useIsAuth();
+  const [, createPost] = useCreatePostMutation();
 
   return (
     <Layout>
       <Formik
-        initialValues={{ title : "",text :"" }}
+        initialValues={{ title: "", text: "" }}
         onSubmit={async (value) => {
-          const {error} = await createPost({input:value});
-         if(!error){
-             router.push("/");
-         }
+          const { error } = await createPost({ input: value });
+          if (!error) {
+            router.push("/");
+          }
         }}
       >
         {({ isSubmitting }) => {
           return (
             <Form>
-              <InputField
-                name="title"
-                placeholder="Title"
-                label="Title"
-              />
+              <InputField name="title" placeholder="Title" label="Title" />
               <Box mt={4}>
                 <InputField
                   name="text"
