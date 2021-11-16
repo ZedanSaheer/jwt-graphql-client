@@ -9,6 +9,7 @@ import { useCreatePostMutation } from "../generated/graphql";
 import { useRouter } from "next/dist/client/router";
 import { Layout } from "../components/Layout";
 import { useIsAuth } from "../utils/useIsAuth";
+import { Textarea } from "@chakra-ui/textarea";
 
 export const CreatePost: FC<{}> = ({}) => {
   const router = useRouter();
@@ -31,7 +32,7 @@ export const CreatePost: FC<{}> = ({}) => {
             <Form>
               <InputField name="title" placeholder="Title" label="Title" />
               <Box mt={4}>
-                <InputField
+                <Textarea
                   name="text"
                   placeholder="Text"
                   label="Text"
