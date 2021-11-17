@@ -27,17 +27,16 @@ const cursorPagination = (): Resolver => {
       return undefined;
     }
 
+    const fieldKey = `${fieldName}(${stringifyVariables(fieldArgs)})`
+    const isItinCache = cache.resolve(entityKey, fieldKey)
+    info.partial = !isItinCache;
     const results: string[] = [];
+    fieldInfos.forEach(fi => {
+      const data = cache.resolve(entityKey, fi.fieldKey) as string[];
+      results.push(...data);
+    });
 
-    console.log();
-    
-
-   fieldInfos.forEach(fi=>{
-     const data = cache.resolve(entityKey,fi.fieldKey) as string[];
-     results.push(...data);
-   });
-
-   return results;
+    return results;
   }
 }
 
